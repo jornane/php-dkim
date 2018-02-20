@@ -201,6 +201,7 @@ abstract class AbstractDKIM {
         $lines = explode("\n", $this->_raw);
         // Jump past all the headers
         $on = false;
+        $line = '';
         while ($line = array_shift($lines)) {
             // Remove trailing carriage-return if present
             // It might be present if emails are read from Unix maildirs directly instead of via IMAP/POP3
@@ -213,9 +214,9 @@ abstract class AbstractDKIM {
                 $on = true;
             }
         }
-        
-        return implode("\r\n", $lines);
-        
+
+        return "$line\n" . implode("\n", $lines);
+
     }
     
     /**
